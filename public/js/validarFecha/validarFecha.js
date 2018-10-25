@@ -41,6 +41,7 @@ console.table(list.map(({
     name
 }) => name));
 
+
 // Get average age
 console.log("Average age %i", list.reduce((sum, {
     birthday
@@ -56,9 +57,10 @@ console.log("Average age %i", list.reduce((sum, {
 function getAge(birthday) {
     var ageDifMs = Date.now() - birthday;
     var ageDate = new Date(ageDifMs); // miliseconds from epoch
+    console.log("1");
     return Math.abs(ageDate.getUTCFullYear() - 1970);
 }
-
+console.log('2');
 console.log("Average age %i", list.reduce((sum, {
     birthday
 }) => getAge(birthday) + sum, 0) / list.length);
