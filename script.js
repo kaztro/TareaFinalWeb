@@ -30,7 +30,7 @@ let list = [] // To save persons
 
 // To Add 10 fake persons
 for (let i = 0; i < 10; i++) {
-    list.push(createPerson(`Name ${i}`, `Lastname ${i}`, new Date().setFullYear(1990 + i + Math.floor(Math.random() * 5)), `000000${i}`));
+    list.push(createPerson(`Name ${i}`, `Lastname ${i}`, new Date().setFullYear(1990 + i + Math.floor(Math.random() * 9)), `000000${i}`));
 }
 
 console.table(list);
@@ -40,7 +40,7 @@ console.table(list);
 console.table(list.map(({
     name
 }) => name));
-
+/*
 // Get average age
 console.log("Average age %i", list.reduce((sum, {
     birthday
@@ -49,29 +49,19 @@ console.log("Average age %i", list.reduce((sum, {
     var ageDate = new Date(ageDifMs); // miliseconds from epoch
     return Math.abs(ageDate.getUTCFullYear() - 1970) + sum;
 }, 0) / list.length);
-
+*/
 
 // More readable
 
 function getAge(birthday) {
-    /*
-    aNac = birthday.getUTCFullYear();
-    dNac = birthday.getUTCDay();
-    mNac = birthday.getUTCMonth();
-    if ((((aNac % 100) != 0) && ((aNac % 4) == 0)) || ((aNac % 400) == 0)) {
-        if (mNac == 1 && dNac == 29) {
-            dNac = 28;
-            birthday = new Date(aNac, mNac, dNac);      
-        }
-    }*/
     var ageDifMs = Date.now() - birthday;
     var ageDate = new Date(ageDifMs); // miliseconds from epoch
-    //var rAg;
     aneo = ageDate.getUTCFullYear();
     dia = ageDate.getUTCDay();
     mes = ageDate.getUTCMonth();
-
-    return Math.abs(aneo - 1970);
+    var aux = valAge(dia, mes, aneo);
+    fAneo = aux.getUTCFullYear();
+    return Math.abs(fAneo - 1970);
 }
 
 console.log("Average age %i", list.reduce((sum, {
@@ -82,7 +72,6 @@ function valAge(dia, mes, aneo) {
     if ((((aneo % 100) != 0) && ((aneo % 4) == 0)) || ((aneo % 400) == 0)) {
         if (mes == 1 && dia == 29) {
             dia = 28;
-            //ageDate.setFullYear(aneo, mes, dia);
         }
     } else {
         if (dia - 1 == 0) {
@@ -92,6 +81,7 @@ function valAge(dia, mes, aneo) {
                 if (mes == 0) {
                     mes = 11;
                     dia = 31;
+                    aneo -= 1;
                 }
                 dia = 30;
             } else {
@@ -100,4 +90,6 @@ function valAge(dia, mes, aneo) {
             }
         }
     }
+    auxDate = new Date(aneo, mes, dia);
+    return auxDate;
 }
